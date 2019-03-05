@@ -7,11 +7,10 @@ import time
 import queue as Queue
 
 link_list = []
-with open('alexa.txt', 'r') as file:
-    file_list = file.readlines()
+with open('weblist.txt','r') as f:
+    file_list = f.readlines()
     for eachone in file_list:
-        link = eachone.split('\t')[1]
-        link = link.replace('\n','')
+        link = eachone.replace('\n','')
         link_list.append(link)
         
 start = time.time()
@@ -30,7 +29,6 @@ class myThread (threading.Thread):
         print ("Exiting " + self.name)
         
 def crawler(threadName, q):
-#获取队列
     url = q.get(timeout=2)
     try:
         r = requests.get(url, timeout=20)
