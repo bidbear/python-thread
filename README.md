@@ -6,6 +6,7 @@ import requests
 import time
 import queue as Queue
 
+#h获取网址列表
 link_list = []
 with open('weblist.txt','r') as f:
     file_list = f.readlines()
@@ -14,6 +15,7 @@ with open('weblist.txt','r') as f:
         link_list.append(link)
         
 start = time.time()
+#创建线程对象，固定格式
 class myThread (threading.Thread):
     def __init__(self, name, q):
         threading.Thread.__init__(self)
@@ -27,8 +29,9 @@ class myThread (threading.Thread):
             except:
                 break
         print ("Exiting " + self.name)
-        
+ #定义线程处理内容       
 def crawler(threadName, q):
+#获取队列
     url = q.get(timeout=2)
     try:
         r = requests.get(url, timeout=20)
